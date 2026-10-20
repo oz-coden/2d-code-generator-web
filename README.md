@@ -14,28 +14,28 @@
 
 ## Summary
 
-A lightweight static tool that generates QR codes from text or URLs in the browser. Save the result as PNG or SVG, or print a QR-only page. The current implementation supports QR Code Model 2.
+A lightweight static tool that generates 2D codes from text or URLs in the browser. Save the result as PNG or SVG, or print a code-only page. The current implementation supports a single matrix format (Model 2).
 
 [Playground Is Here!](https://tools.oz-coden.com/2d-code-generator/)
 
 ## Background of Development
 
-The aim is to create QR codes without uploading their contents to an external generation service, while keeping the interface usable on both phones and desktop computers.
+The aim is to create 2D codes without uploading their contents to an external generation service, while keeping the interface usable on both phones and desktop computers.
 
 ## Features
 
-- Client-side QR generation  
+- Client-side 2D code generation  
   Encode text, URLs, Japanese, emoji and line breaks locally as UTF-8 with an ECI designator. Leading and trailing whitespace is preserved; URLs are encoded as text without being opened.
 - PNG and SVG downloads  
   Save an opaque black-and-white PNG at 256, 512 or 1024 pixels square, or a self-contained SVG. Every code includes a quiet zone of at least four modules; PNG modules align to integer pixels.
 - Printing  
-  Open the browser print dialog for a white, QR-only layout. The QR is 70 mm wide in the print stylesheet, subject to printer settings and page scaling.
+  Open the browser print dialog for a white, code-only layout. The code is 70 mm wide in the print stylesheet, subject to printer settings and page scaling.
 - Error correction selection  
   Choose L, M, Q or H; M is the default. Higher correction levels reduce available capacity.
 - Stale output prevention  
   Editing the input or either setting removes the old preview and disables saving and printing until regeneration.
 - Responsive layout and shared themes  
-  Use the common navigation, light and dark themes, and a single-column layout on smaller screens. The QR remains black on white in either theme.
+  Use the common navigation, light and dark themes, and a single-column layout on smaller screens. The code remains black on white in either theme.
 
 ## Requirements, Dependencies
 
@@ -57,18 +57,18 @@ The user interface is in Japanese. Shared UI assets are included in this reposit
 
 The application files are at the repository root. Running the application requires only static HTML, CSS and JavaScript; no Node.js runtime, API server or build step is required.
 
-All generation and export code, including the QR library, is included in this repository. There are no external fonts, analytics, CDN dependencies or QR generation APIs. The application neither sends the input over the network nor saves it in browser storage. The shared UI stores only the selected theme. The page also sets a Content Security Policy with `connect-src 'none'`.
+All generation and export code, including the encoding library, is included in this repository. There are no external fonts, analytics, CDN dependencies or code generation APIs. The application neither sends the input over the network nor saves it in browser storage. The shared UI stores only the selected theme. The page also sets a Content Security Policy with `connect-src 'none'`.
 
-Opening the hosted page downloads its static assets. Following the navigation or GitHub links makes normal network requests. A generated QR code contains the entered information, so anyone with the image can read it. Browser history, download handling and print services are controlled by the browser and operating system.
+Opening the hosted page downloads its static assets. Following the navigation or GitHub links makes normal network requests. A generated 2D code contains the entered information, so anyone with the image can read it. Browser history, download handling and print services are controlled by the browser and operating system.
 
 ### Usage
 
 1. Enter text or a URL in **テキストまたはURL**. Text is encoded exactly as entered, including whitespace and line breaks; the input is not fetched or checked as a URL.
-2. Choose **PNGの画像サイズ** and **誤り訂正レベル**, then click **QRコードを生成**.
-3. Use **PNGを保存** or **SVGを保存** to download `qrcode.png` or `qrcode.svg`. Use **印刷** to open the browser print dialog; select a printer or PDF destination available on your device.
+2. Choose **PNGの画像サイズ** and **誤り訂正レベル**, then click **二次元コードを生成**.
+3. Use **PNGを保存** or **SVGを保存** to download `2d-code.png` or `2d-code.svg`. Use **印刷** to open the browser print dialog; select a printer or PDF destination available on your device.
 4. After editing the input or settings, generate again before saving or printing. **クリア** removes the input and result.
 
-Input is limited to 2,900 UTF-8 bytes. Actual QR capacity also depends on the error correction level, so shorter input may still exceed capacity. If generation fails, shorten the text or lower the correction level. Dense codes can be harder to scan at small sizes. Test the saved or printed code with the intended reader before distributing it. Readers without UTF-8 ECI support may interpret non-ASCII text differently.
+Input is limited to 2,900 UTF-8 bytes. Actual code capacity also depends on the error correction level, so shorter input may still exceed capacity. If generation fails, shorten the text or lower the correction level. Dense codes can be harder to scan at small sizes. Test the saved or printed code with the intended reader before distributing it. Readers without UTF-8 ECI support may interpret non-ASCII text differently.
 
 ### Development and publication
 
@@ -96,7 +96,7 @@ This project is released under the [MIT License](LICENSE). Bundled third-party l
 
 Shared styles, navigation and themes: [oz-coden.com-ui-web](https://github.com/oz-coden/oz-coden.com-ui-web).
 
-QR encoding uses Project Nayuki's [QR Code generator library](https://github.com/nayuki/QR-Code-generator) under the MIT License. The source revision, compiler and hashes are recorded in [UPSTREAM.json](vendor/qrcodegen/UPSTREAM.json); the original copyright and license notice are preserved in [THIRD-PARTY-NOTICES.txt](vendor/qrcodegen/THIRD-PARTY-NOTICES.txt) and the distributed JavaScript.
+Encoding uses Project Nayuki's [encoding library](https://github.com/nayuki/QR-Code-generator) under the MIT License. The source revision, compiler and hashes are recorded in [UPSTREAM.json](vendor/qrcodegen/UPSTREAM.json); the original copyright and license notice are preserved in [THIRD-PARTY-NOTICES.txt](vendor/qrcodegen/THIRD-PARTY-NOTICES.txt) and the distributed JavaScript.
 
 The vendored JavaScript was compiled from `typescript-javascript/qrcodegen.ts` at commit `3c6d0b3cefb4e049dc337e82237c9644399716a8` using esbuild 0.25.12 (`--target=es2020 --minify`). Recompiling this library is not required to run or edit the application.
 
@@ -118,28 +118,28 @@ Browser tests use jsQR as an independent decoder and pngjs to inspect PNG downlo
 
 ## 概要
 
-文字列やURLからブラウザ内でQRコードを生成する、軽量な静的ツールです。PNG・SVG形式での保存と、QRコードのみの印刷に対応しています。現在はQR Code Model 2に対応しています。
+文字列やURLからブラウザ内で二次元コードを生成する、軽量な静的ツールです。PNG・SVG形式での保存と、二次元コードのみの印刷に対応しています。現在はModel 2形式の生成に対応しています。
 
 [Playgroundはこちら！](https://tools.oz-coden.com/2d-code-generator/)
 
 ## 開発背景
 
-外部の生成サービスに内容をアップロードせずにQRコードを作成し、スマートフォンとPCのどちらでも使いやすくすることを目的としています。
+外部の生成サービスに内容をアップロードせずに二次元コードを作成し、スマートフォンとPCのどちらでも使いやすくすることを目的としています。
 
 ## 機能
 
-- ブラウザ内でのQR生成  
+- ブラウザ内での二次元コード生成  
   文字列・URL・日本語・絵文字・改行を、ECIでUTF-8を指定してローカルで符号化します。前後の空白は保持し、URLも開かずに文字列として扱います。
 - PNG・SVG形式の保存  
   白黒・不透明のPNGを256・512・1024ピクセル四方で保存するか、単体で利用できるSVGとして保存できます。周囲には4モジュール以上の余白を付け、PNGの各モジュールは整数ピクセルで描画します。
 - 印刷  
-  白地にQRコードのみを配置した画面で、ブラウザの印刷ダイアログを開きます。印刷用CSSでは幅70 mmに設定していますが、実際の寸法はプリンターの設定や拡大縮小に依存します。
+  白地に二次元コードのみを配置した画面で、ブラウザの印刷ダイアログを開きます。印刷用CSSでは幅70 mmに設定していますが、実際の寸法はプリンターの設定や拡大縮小に依存します。
 - 誤り訂正レベルの選択  
   L・M・Q・Hを選べます。初期値はMです。復元力を高くすると、格納できる内容の量は減ります。
 - 古い結果の保存を防止  
   入力や設定を変更すると古いプレビューを消し、再生成するまで保存・印刷を無効にします。
 - スマートフォン対応と共通テーマ  
-  共通ナビゲーションとライト・ダークテーマを利用でき、小さい画面では1列に配置します。どちらのテーマでも、QRコードは白地に黒で表示します。
+  共通ナビゲーションとライト・ダークテーマを利用でき、小さい画面では1列に配置します。どちらのテーマでも、二次元コードは白地に黒で表示します。
 
 ## 前提・依存
 
@@ -161,18 +161,18 @@ Browser tests use jsQR as an independent decoder and pngjs to inspect PNG downlo
 
 アプリ本体はリポジトリのルートにあります。実行には静的なHTML・CSS・JavaScriptだけを使い、Node.jsの実行環境・APIサーバー・ビルド工程は不要です。
 
-QRライブラリを含め、生成と書き出しに必要なコードはこのリポジトリに同梱しています。外部フォント・解析ツール・CDN依存・QR生成APIは使用しません。アプリは入力内容をネットワーク送信せず、ブラウザの保存領域にも保存しません。共通UIは選択したテーマだけを保存します。ページには`connect-src 'none'`を含むContent Security Policyも設定しています。
+符号化ライブラリを含め、生成と書き出しに必要なコードはこのリポジトリに同梱しています。外部フォント・解析ツール・CDN依存・コード生成APIは使用しません。アプリは入力内容をネットワーク送信せず、ブラウザの保存領域にも保存しません。共通UIは選択したテーマだけを保存します。ページには`connect-src 'none'`を含むContent Security Policyも設定しています。
 
-公開ページを開く際は静的ファイルをダウンロードします。ナビゲーションやGitHubのリンクを開く場合も通常の通信が発生します。QRコードには入力した情報が入るため、画像を受け取った人は内容を読み取れます。ブラウザの履歴、ダウンロードの扱い、印刷サービスはブラウザとOSが管理します。
+公開ページを開く際は静的ファイルをダウンロードします。ナビゲーションやGitHubのリンクを開く場合も通常の通信が発生します。二次元コードには入力した情報が入るため、画像を受け取った人は内容を読み取れます。ブラウザの履歴、ダウンロードの扱い、印刷サービスはブラウザとOSが管理します。
 
 ### 使い方
 
 1. **テキストまたはURL**に内容を入力します。空白や改行も含め、そのまま符号化します。URLとしてアクセスしたり、存在を確認したりする処理はありません。
-2. **PNGの画像サイズ**と**誤り訂正レベル**を選び、**QRコードを生成**を押します。
-3. **PNGを保存**または**SVGを保存**で、`qrcode.png`または`qrcode.svg`をダウンロードします。**印刷**ではブラウザの印刷ダイアログが開くので、端末で利用できるプリンターやPDFの保存先を選びます。
+2. **PNGの画像サイズ**と**誤り訂正レベル**を選び、**二次元コードを生成**を押します。
+3. **PNGを保存**または**SVGを保存**で、`2d-code.png`または`2d-code.svg`をダウンロードします。**印刷**ではブラウザの印刷ダイアログが開くので、端末で利用できるプリンターやPDFの保存先を選びます。
 4. 入力や設定を変更した後は、保存・印刷の前に再生成します。**クリア**で入力と結果を消去できます。
 
-入力の上限はUTF-8で2900バイトです。実際のQR容量は誤り訂正レベルにも依存するため、上限以内でも収まらない場合があります。その場合は内容を短くするか、誤り訂正レベルを下げてください。情報量の多いQRコードを小さく表示すると、読み取りにくくなる場合があります。配布前に、保存・印刷したコードを利用予定のリーダーで確認してください。UTF-8のECIに対応していないリーダーでは、日本語などの解釈が異なる場合があります。
+入力の上限はUTF-8で2900バイトです。実際の格納容量は誤り訂正レベルにも依存するため、上限以内でも収まらない場合があります。その場合は内容を短くするか、誤り訂正レベルを下げてください。情報量の多い二次元コードを小さく表示すると、読み取りにくくなる場合があります。配布前に、保存・印刷したコードを利用予定のリーダーで確認してください。UTF-8のECIに対応していないリーダーでは、日本語などの解釈が異なる場合があります。
 
 ### 開発と公開
 
@@ -200,7 +200,7 @@ This project is released under the [MIT License](LICENSE). Bundled third-party l
 
 共通のスタイル・ナビゲーション・テーマ：[oz-coden.com-ui-web](https://github.com/oz-coden/oz-coden.com-ui-web)。
 
-QRの符号化には、MITライセンスのProject Nayuki [QR Code generator library](https://github.com/nayuki/QR-Code-generator)を使用しています。取得元の版・コンパイラー・ハッシュは[UPSTREAM.json](vendor/qrcodegen/UPSTREAM.json)に記録し、元の著作権表示とライセンス通知を[THIRD-PARTY-NOTICES.txt](vendor/qrcodegen/THIRD-PARTY-NOTICES.txt)と配布用JavaScriptに保持しています。
+二次元コードの符号化には、MITライセンスのProject Nayuki [encoding library](https://github.com/nayuki/QR-Code-generator)を使用しています。取得元の版・コンパイラー・ハッシュは[UPSTREAM.json](vendor/qrcodegen/UPSTREAM.json)に記録し、元の著作権表示とライセンス通知を[THIRD-PARTY-NOTICES.txt](vendor/qrcodegen/THIRD-PARTY-NOTICES.txt)と配布用JavaScriptに保持しています。
 
 同梱のJavaScriptは、コミット`3c6d0b3cefb4e049dc337e82237c9644399716a8`の`typescript-javascript/qrcodegen.ts`をesbuild 0.25.12（`--target=es2020 --minify`）で変換したものです。アプリの実行や編集のために、このライブラリを再コンパイルする必要はありません。
 

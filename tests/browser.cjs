@@ -23,7 +23,7 @@ async function bytes(download) {
 }
 function decode(image) {
     const qr = jsQR(new Uint8ClampedArray(image.data), image.width, image.height);
-    assert.ok(qr, 'an independent decoder must read the exported QR image');
+    assert.ok(qr, 'an independent decoder must read the exported 2D code image');
     return qr.data;
 }
 (async () => {
@@ -56,13 +56,13 @@ function decode(image) {
             await page.locator('#qr-input').fill(text);
             await page.locator('#qr-ecc').selectOption(ecc);
             await page.locator('#qr-size').selectOption(size);
-            await page.getByRole('button', { name: 'QRコードを生成', exact: true }).click();
+            await page.getByRole('button', { name: '二次元コードを生成', exact: true }).click();
         };
         const downloadPng = async () => {
             const promise = page.waitForEvent('download');
             await page.getByRole('button', { name: 'PNGを保存' }).click();
             const download = await promise;
-            assert.equal(download.suggestedFilename(), 'qrcode.png');
+            assert.equal(download.suggestedFilename(), '2d-code.png');
             return PNG.sync.read(await bytes(download));
         };
         await check('empty input cannot be exported or printed', async () => {
@@ -74,7 +74,7 @@ function decode(image) {
         await check('PNG exports preserve exact text, URLs, Japanese, emoji and all correction levels', async () => {
             const samples = [
                 ['https://example.com/path?a=1&b=%E6%97%A5#part', 'L', '256'],
-                ['日本語のQRコード 😀\n2行目', 'M', '512'],
+                ['日本語の二次元コード 😀\n2行目', 'M', '512'],
                 ['  leading and trailing spaces  ', 'Q', '1024'],
                 ['<script>alert("test")</script>\njavascript:alert(1)', 'H', '512'],
             ];
@@ -100,7 +100,7 @@ function decode(image) {
             const promise = page.waitForEvent('download');
             await page.getByRole('button', { name: 'SVGを保存' }).click();
             const download = await promise;
-            assert.equal(download.suggestedFilename(), 'qrcode.svg');
+            assert.equal(download.suggestedFilename(), '2d-code.svg');
             const svg = (await bytes(download)).toString('utf8');
             assert.match(svg, /xmlns="http:\/\/www.w3.org\/2000\/svg"/);
             assert.doesNotMatch(svg, /<script|<image|href=|https:\/\/example/);
@@ -143,7 +143,7 @@ function decode(image) {
             await generate('a'.repeat(2900), 'L', '1024');
             assert.equal(decode(await downloadPng()), 'a'.repeat(2900));
         });
-        await check('print uses a white QR-only layout and invokes browser printing', async () => {
+        await check('print uses a white code-only layout and invokes browser printing', async () => {
             await generate('印刷テスト');
             await page.getByRole('button', { name: 'ダークテーマに切り替え' }).click();
             assert.equal(await page.locator('#qr-preview').evaluate(el => getComputedStyle(el).backgroundColor), 'rgb(255, 255, 255)');
@@ -185,6 +185,6 @@ function decode(image) {
         assert.deepEqual(errors, []);
         assert.deepEqual(violations, []);
         await context.close();
-        console.log(`${count} QR browser checks passed`);
+        console.log(`${count} 2D code browser checks passed`);
     } finally { if (browser) await browser.close(); await new Promise(resolve => server.close(resolve)); }
 })().catch(error => { console.error(error); server.close(); process.exitCode = 1; });

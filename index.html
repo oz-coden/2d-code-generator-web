@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' blob: data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; font-src 'self'">
-    <meta name="description" content="文字列やURLからブラウザ内でQRコードを生成。PNG・SVG保存と印刷に対応し、入力内容は外部送信しません。">
-    <title>QRコードジェネレーター | oz-coden tools</title>
+    <meta name="description" content="文字列やURLからブラウザ内で二次元コードを生成。PNG・SVG保存と印刷に対応し、入力内容は外部送信しません。">
+    <title>二次元コードジェネレーター | oz-coden tools</title>
     <link rel="icon" href="data:,">
     <link rel="stylesheet" href="vendor/ui/ui.css">
     <link rel="stylesheet" href="style.css">
@@ -14,14 +14,14 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <header class="ui-header" data-ui-header data-title="QRコードジェネレーター" data-source="https://github.com/oz-coden/2d-code-generator-web">
+    <header class="ui-header" data-ui-header data-title="二次元コードジェネレーター" data-source="https://github.com/oz-coden/2d-code-generator-web">
         <a class="ui-brand" href="https://tools.oz-coden.com/">oz-coden tools</a>
     </header>
     <main class="ui-main">
         <div class="ui-heading">
             <p class="ui-eyebrow">IMAGE TOOLS</p>
-            <h1>QRコードジェネレーター</h1>
-            <p class="ui-description">テキストやURLを、保存・印刷できるQRコードに。</p>
+            <h1>二次元コードジェネレーター</h1>
+            <p class="ui-description">テキストやURLを、保存・印刷できる二次元コードに。</p>
         </div>
         <div class="qr-workspace">
             <section class="ui-panel input-panel" aria-labelledby="input-heading">
@@ -41,24 +41,24 @@
                         </div>
                     </div>
                     <p class="ui-note">長い文章が入らない場合は、内容を短くするか誤り訂正レベルを下げてください。</p>
-                    <div class="ui-actions generate-actions"><button type="submit" class="btn-primary">QRコードを生成</button><button type="button" id="clear-btn" class="btn-cancel">クリア</button></div>
+                    <div class="ui-actions generate-actions"><button type="submit" class="btn-primary">二次元コードを生成</button><button type="button" id="clear-btn" class="btn-cancel">クリア</button></div>
                     <p id="qr-status" class="ui-status" role="status" aria-live="polite"></p>
                 </form>
             </section>
             <section class="ui-panel result-panel" aria-labelledby="result-heading">
                 <h2 id="result-heading">プレビュー</h2>
-                <div id="qr-preview" class="qr-preview"><p id="empty-preview">生成したQRコードが<br>ここに表示されます。</p></div>
+                <div id="qr-preview" class="qr-preview"><p id="empty-preview">生成した二次元コードが<br>ここに表示されます。</p></div>
                 <p id="result-summary" class="ui-note"></p>
                 <div class="ui-actions export-actions">
                     <button type="button" id="save-png" class="btn-primary" disabled>PNGを保存</button>
                     <button type="button" id="save-svg" class="btn-copy" disabled>SVGを保存</button>
                     <button type="button" id="print-btn" class="btn-copy" disabled>印刷</button>
                 </div>
-                <p class="ui-note result-note">余白付きの白黒画像で保存します。印刷は白黒のQRコードのみです。利用前に読み取りを確認してください。</p>
+                <p class="ui-note result-note">余白付きの白黒画像で保存します。印刷は白黒の二次元コードのみです。利用前に読み取りを確認してください。</p>
             </section>
         </div>
-        <p id="privacy-note" class="ui-footer">生成処理はブラウザ内で完結します。入力内容を外部に送信・保存しません。QRコードを読み取ると内容が分かるため、画像の共有先には注意してください。</p>
-        <noscript><p class="ui-error">QRコードを生成するには、ブラウザのJavaScriptを有効にしてください。</p></noscript>
+        <p id="privacy-note" class="ui-footer">生成処理はブラウザ内で完結します。入力内容を外部に送信・保存しません。二次元コードを読み取ると内容が分かるため、画像の共有先には注意してください。</p>
+        <noscript><p class="ui-error">二次元コードを生成するには、ブラウザのJavaScriptを有効にしてください。</p></noscript>
     </main>
 </body>
 </html>

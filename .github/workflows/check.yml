@@ -1,4 +1,4 @@
-name: Check QR generation and browser behavior
+name: Check 2D code generation and browser behavior
 on: [push, pull_request, workflow_dispatch]
 permissions:
   contents: read

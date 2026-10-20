@@ -27,12 +27,12 @@ function invalidate() {
     preview.replaceChildren();
     const empty = document.createElement('p');
     empty.id = 'empty-preview';
-    empty.textContent = '生成したQRコードがここに表示されます。';
+    empty.textContent = '生成した二次元コードがここに表示されます。';
     preview.append(empty);
     summary.textContent = '';
     const byteLength = input.value.length > maxBytes ? null : encoder.encode(input.value).length;
     counter.textContent = byteLength === null ? '2900バイトを超えています（UTF-8）' : `${byteLength} / 2900バイト（UTF-8）`;
-    message(hadResult ? '内容または設定を変更しました。QRコードを再生成してください。' : '');
+    message(hadResult ? '内容または設定を変更しました。二次元コードを再生成してください。' : '');
 }
 function createSvg(qr) {
     const extent = qr.size + border * 2;
@@ -42,7 +42,7 @@ function createSvg(qr) {
     svg.setAttribute('height', String(extent));
     svg.setAttribute('shape-rendering', 'crispEdges');
     svg.setAttribute('role', 'img');
-    svg.setAttribute('aria-label', '生成したQRコード');
+    svg.setAttribute('aria-label', '生成した二次元コード');
     const background = document.createElementNS(svgNamespace, 'rect');
     background.setAttribute('width', String(extent));
     background.setAttribute('height', String(extent));
@@ -76,9 +76,9 @@ function generate() {
         preview.replaceChildren(svg);
         pngButton.disabled = svgButton.disabled = printButton.disabled = false;
         summary.textContent = `${bytes.length}バイト · PNG ${result.pixels} × ${result.pixels} px · 誤り訂正 ${eccInput.value}`;
-        message('QRコードを生成しました。');
+        message('二次元コードを生成しました。');
     } catch (error) {
-        message(error instanceof RangeError ? 'この内容はQRコードに収まりません。短くするか、誤り訂正レベルを下げてください。' : 'QRコードを生成できませんでした。ページを再読み込みして試してください。', true);
+        message(error instanceof RangeError ? 'この内容は二次元コードに収まりません。短くするか、誤り訂正レベルを下げてください。' : '二次元コードを生成できませんでした。ページを再読み込みして試してください。', true);
     }
 }
 function download(blob, filename) {
@@ -111,7 +111,7 @@ function savePng() {
         }
         canvas.toBlob(blob => {
             if (!blob) { message('PNGを保存できませんでした。SVG形式で試してください。', true); return; }
-            download(blob, 'qrcode.png');
+            download(blob, '2d-code.png');
         }, 'image/png');
     } catch (_) { message('PNGを保存できませんでした。SVG形式で試してください。', true); }
 }
@@ -122,7 +122,7 @@ eccInput.addEventListener('change', invalidate);
 document.getElementById('clear-btn').addEventListener('click', () => { input.value = ''; invalidate(); input.focus(); });
 pngButton.addEventListener('click', savePng);
 svgButton.addEventListener('click', () => {
-    if (result) download(new Blob([new XMLSerializer().serializeToString(result.svg)], { type: 'image/svg+xml;charset=utf-8' }), 'qrcode.svg');
+    if (result) download(new Blob([new XMLSerializer().serializeToString(result.svg)], { type: 'image/svg+xml;charset=utf-8' }), '2d-code.svg');
 });
 printButton.addEventListener('click', () => { if (result) window.print(); });
 invalidate();
