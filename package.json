@@ -1,0 +1,11 @@
+{
+  "name": "2d-code-generator-web",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": { "test": "node tests/browser.cjs" },
+  "devDependencies": {
+    "jsqr": "1.4.0",
+    "playwright": "1.56.1",
+    "pngjs": "7.0.0"
+  }
+}
