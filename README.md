@@ -39,7 +39,7 @@ The aim is to create 2D codes without uploading their contents to an external ge
 
 ## Requirements, Dependencies
 
-- A current web browser with JavaScript, TextEncoder, SVG, Canvas and Blob URL support.
+- The latest stable version of a web browser with JavaScript enabled.
 - A browser and device that support file downloads and printing to use those features. Save and print destinations depend on the browser and operating system.
 
 The user interface is in Japanese. Shared UI assets are included in this repository. Python 3 is only needed for the example local server command below; an equivalent static HTTP server can also be used.
@@ -143,7 +143,7 @@ Browser tests use jsQR as an independent decoder and pngjs to inspect PNG downlo
 
 ## 前提・依存
 
-- JavaScript・TextEncoder・SVG・Canvas・Blob URLに対応した最新のWebブラウザ。
+- JavaScriptが有効な最新版（安定版）のWebブラウザ。
 - 保存・印刷を利用する場合は、それらに対応したブラウザと端末。保存先や印刷先は、ブラウザとOSの機能に依存します。
 
 画面の言語は日本語です。共通UIのファイルはこのリポジトリに同梱しています。Python 3は下記のローカルサーバーのコマンドを使う場合に必要で、同等の静的HTTPサーバーでも実行できます。
